@@ -2,7 +2,8 @@
 #include <math.h>
 
 __global__ void vecadd(double* d_x, double* d_y, double* d_z, int N) {
-    for(int i = 0; i < N; ++i) {
+    unsigned int i = blockDim.x * blockIdx.x + threadIdx.x;
+    if(i < N) {
         d_z[i] = d_x[i] + d_y[i];
     }
 }
